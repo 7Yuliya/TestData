@@ -51,19 +51,6 @@ public class AuthTest {
     //  незарегистрированного пользователя, для заполнения полей формы используйте пользователя notRegisteredUser
 
 
-    @Test
-    @DisplayName("Should get error message if login with blocked registered user")
-    void shouldGetErrorIfBlockedUser() {
-
-        val user = DataGenerator.Registration.getRegisteredUser("en", "blocked");
-        $("span[data-test-id='login'] input").setValue("misha");
-        $("span[data-test-id='password'] input").setValue("passwordM");
-
-        $("button[data-test-id='action-login']").click();
-        $("div[data-test-id='error-notification']").shouldHave(text("Пользователь заблокирован"));
-    }
-    // TODO: добавить логику теста в рамках которого будет выполнена попытка входа в личный кабинет,
-    //  заблокированного пользователя, для заполнения полей формы используйте пользователя blockedUser
 
 
     @Test

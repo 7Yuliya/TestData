@@ -46,7 +46,6 @@ public class DataGenerator {
             given() // "дано"
                     .spec(requestSpec) // указываем, какую спецификацию используем
                     .body(new RegistrationDto("vasya", "password", "active")) // передаём в теле объект, который будет преобразован в JSON
-                    .body(new RegistrationDto("misha", "passwordM", "blocked"))
                     .when() // "когда"
                     .post("/api/system/users") // на какой путь, относительно BaseUri отправляем запрос
                     .then() // "тогда ожидаем"
