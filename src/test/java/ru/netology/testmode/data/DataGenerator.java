@@ -52,10 +52,21 @@ public class DataGenerator {
                     .statusCode(200); // код 200 OK
             return user;
         }
-
+        public static RegistrationDto getBlockedUser(String locale, String status) {
+            RegistrationDto user = getUser(locale, status);
+            // сам запрос
+            given() // "дано"
+                    .spec(requestSpec) // указываем, какую спецификацию используем
+                    .body(new RegistrationDto("vasya", "password", "blocked")) // передаём в теле объект, который будет преобразован в JSON
+                    .when() // "когда"
+                    .post("/api/system/users") // на какой путь, относительно BaseUri отправляем запрос
+                    .then() // "тогда ожидаем"
+                    .statusCode(200); // код 200 OK
+            return user;
+        }
     }
-}
 
+}
 
 
 
