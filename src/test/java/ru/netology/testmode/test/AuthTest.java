@@ -31,9 +31,7 @@ public class AuthTest {
         $("button[data-test-id='action-login']").click();
         $("body div#root h2").shouldHave(text("Личный кабинет"));
     }
-    // TODO: добавить логику теста, в рамках которого будет выполнена попытка входа в личный кабинет с учётными
-    //  данными зарегистрированного активного пользователя, для заполнения полей формы используйте
-    //  пользователя registeredUser
+
 
 
     @Test
@@ -47,8 +45,6 @@ public class AuthTest {
         $("button[data-test-id='action-login']").click();
         $("div[data-test-id='error-notification']").shouldHave(text("Неверно указан логин или пароль"));
     }
-    // TODO: добавить логику теста в рамках которого будет выполнена попытка входа в личный кабинет
-    //  незарегистрированного пользователя, для заполнения полей формы используйте пользователя notRegisteredUser
 
     @Test
     @DisplayName("Should get error message if login with blocked registered user")
@@ -61,8 +57,7 @@ public class AuthTest {
         $("button[data-test-id='action-login']").click();
         $("div[data-test-id='error-notification']").shouldHave(text("Пользователь заблокирован"));
     }
-    // TODO: добавить логику теста в рамках которого будет выполнена попытка входа в личный кабинет,
-    //  заблокированного пользователя, для заполнения полей формы используйте пользователя blockedUser
+
 
 
 
@@ -78,9 +73,7 @@ public class AuthTest {
         $("button[data-test-id='action-login']").click();
         $("div[data-test-id='error-notification']").shouldHave(text("Неверно указан логин или пароль"));
     }
-    // TODO: добавить логику теста в рамках которого будет выполнена попытка входа в личный кабинет с неверным
-    //  логином, для заполнения поля формы "Логин" используйте переменную wrongLogin,
-    //  "Пароль" - пользователя registeredUser
+
 
 
     @Test
@@ -96,8 +89,6 @@ public class AuthTest {
     }
 
 }
-// TODO: добавить логику теста в рамках которого будет выполнена попытка входа в личный кабинет с неверным
-//  паролем, для заполнения поля формы "Логин" используйте пользователя registeredUser,
-//  "Пароль" - переменную wrongPassword
+
 
 
