@@ -9,70 +9,67 @@ import io.restassured.specification.RequestSpecification;
 
 import java.util.Locale;
 
+
 import static io.restassured.RestAssured.given;
 
 
 public class DataGenerator {
+    private static final RequestSpecification requestSpec = new RequestSpecBuilder()
+            .setBaseUri("http://localhost")
+            .setPort(9999)
+            .setAccept(ContentType.JSON)
+            .setContentType(ContentType.JSON)
+            .log(LogDetail.ALL)
+            .build();
+    private static final Faker faker = new Faker(new Locale("en"));
 
     private DataGenerator() {
     }
 
-    public static class Registration {
-        private static final RequestSpecification requestSpec = new RequestSpecBuilder()
-                .setBaseUri("http://localhost")
-                .setPort(9999)
-                .setAccept(ContentType.JSON)
-                .setContentType(ContentType.JSON)
-                .log(LogDetail.ALL)
-                .build();
+    private static void sendRequest(RegistrationDto user) {
+        given()
+                .spec(requestSpec)
+                .body(user)
+                .when()
+                .post("/api/system/users")
+                .then()
+                .statusCode(200);
+    }
 
+    public static String getRandomLogin() {
+
+        String login = faker.internet().domainName();
+        return login;
+    }
+    // TODO: добавить логику для объявления переменной login и задания её значения, для генерации
+    //  случайного логина используйте faker
+
+    public static String getRandomPassword() {
+
+        String password = faker.internet().password();
+
+        return password;
+    }
+    // TODO: добавить логику для объявления переменной password и задания её значения, для генерации
+    //  случайного пароля используйте faker
+
+    public static class Registration {
         private Registration() {
         }
 
-        public static RegistrationDto getUser(String locale, String status) {
-
-
-            Faker faker = new Faker(new Locale("en"));
-            return new RegistrationDto(faker.name().username(),
-                    faker.internet().password(),
-                    status
-            );
+        public static RegistrationDto getUser(String status) {
+            return new RegistrationDto(getRandomLogin(), getRandomPassword(), status);
         }
 
+        public static RegistrationDto getRegisteredUser(String status) {
+            RegistrationDto registeredUser = getUser(status);
+            sendRequest(registeredUser);
+            return registeredUser;
 
-        public static RegistrationDto getRegisteredUser(String locale, String status) {
-            RegistrationDto user = getUser(locale, status);
-            // сам запрос
-            given() // "дано"
-                    .spec(requestSpec) // указываем, какую спецификацию используем
-                    .body(new RegistrationDto("vasya", "password", "active")) // передаём в теле объект, который будет преобразован в JSON
-                    .when() // "когда"
-                    .post("/api/system/users") // на какой путь, относительно BaseUri отправляем запрос
-                    .then() // "тогда ожидаем"
-                    .statusCode(200); // код 200 OK
-            return user;
-        }
-        public static RegistrationDto getBlockedUser(String locale, String status) {
-            RegistrationDto user = getUser(locale, status);
-            // сам запрос
-            given() // "дано"
-                    .spec(requestSpec) // указываем, какую спецификацию используем
-                    .body(new RegistrationDto("vasya", "password", "blocked")) // передаём в теле объект, который будет преобразован в JSON
-                    .when() // "когда"
-                    .post("/api/system/users") // на какой путь, относительно BaseUri отправляем запрос
-                    .then() // "тогда ожидаем"
-                    .statusCode(200); // код 200 OK
-            return user;
         }
     }
 
 }
-
-
-
-
-
-
 
 
 

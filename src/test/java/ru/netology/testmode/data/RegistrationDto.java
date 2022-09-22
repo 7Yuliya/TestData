@@ -1,12 +1,13 @@
 package ru.netology.testmode.data;
 
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
+import lombok.RequiredArgsConstructor;
+import lombok.Value;
+
+@Value
 @RequiredArgsConstructor
-@Data
 public class RegistrationDto {
-    private final String login;
-    private final String password;
-    private final String status;
+    String login;
+    String password;
+    String status;
 }
