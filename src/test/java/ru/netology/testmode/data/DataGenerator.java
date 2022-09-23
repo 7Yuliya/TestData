@@ -5,6 +5,7 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
+import lombok.Value;
 
 
 import java.util.Locale;
@@ -68,7 +69,12 @@ public class DataGenerator {
 
         }
     }
-
+    @Value
+    public static class RegistrationDto {
+        String login;
+        String password;
+        String status;
+    }
 }
 
 
